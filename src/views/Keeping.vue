@@ -2,7 +2,7 @@
   <Layout class-prefix="keeping">
     <Types/>
     <Output/>
-    <Tags @update:tag="this.selectedTag = $event"/>
+    <Tags :data-source="tags"/>
     <div class="notesWrapper">
       <Notes/>
       <DatePicker/>
@@ -21,12 +21,14 @@ import Notes from '@/components/Keeping/Notes.vue';
 import DatePicker from '@/components/Keeping/DatePicker.vue';
 import Output from '@/components/Keeping/Output.vue';
 import {Tag} from '@/custom';
+import defaultTags from '@/constants/defaultTags';
 
 
 @Component({
   components: {Output, DatePicker, Notes, Tags, Types, NumberPad}
 })
 export default class Money extends Vue {
+  tags = defaultTags;
   selectedTag:string[] = []
 
   onUpdateTag(tag:Tag){

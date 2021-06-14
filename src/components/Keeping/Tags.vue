@@ -1,21 +1,12 @@
 <template>
   <div class="tagsWrapper">
     <ul class="tags">
-      <li class="selected" @click="toggle(tag)">
-        <Icon name="date"/>
-        餐饮
-      </li>
-      <li>
-        <Icon name="shopping"/>
-        购物
-      </li>
-      <li>
-        <Icon name="transport"/>
-        交通
-      </li>
-      <li>
-        <Icon name="entertainment"/>
-        娱乐
+      <li v-for="(tag, index) in dataSource" :key="index"
+          :class="{selected: selectedTags.indexOf(tag)>=0}"
+          @click="toggleTag(tag)"
+      >
+        <Icon :name="tag.svg"/>
+        {{ tag.name }}
       </li>
       <li>
         <Icon name="setting"/>
@@ -30,38 +21,38 @@ import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 
 type Tag = {
-  id: string;
-  name: string;
-  svg: string;
+  name: string,
+  svg: string
 }
 
 @Component
 export default class Tags extends Vue {
-  @Prop() tag: Tag | undefined
-  selectedTag: string[] = []
+  @Prop() dataSource: string[] | undefined;
+  selectedTags: string[] = [];
 
-  toggle(tag: Tag){
-    const index = this.selectedTag.indexOf(tag)
-    if(index>=0){
-      this.selectedTag.splice(index,1)
+  toggleTag(tag: Tag) {
+    const index = this.selectedTags.indexOf(tag);
+    if (index >= 0) {
+      this.selectedTags.splice(index, 1);
     } else {
-      this.selectedTag.push(tag)
+      this.selectedTags.push(tag);
     }
-    this.$emit('update:tag',this.selectedTag)
   }
 
 }
 </script>
 
 <style lang="scss" scoped>
-.tagsWrapper{
+.tagsWrapper {
   min-height: 38vh;
-  .tags{
+
+  .tags {
     margin: 14px 36px;
     display: flex;
     align-items: center;
     flex-wrap: wrap;
     flex-grow: 1;
+
     > li {
       min-height: 48px;
       min-width: 48px;
@@ -74,11 +65,13 @@ export default class Tags extends Vue {
       border: none;
       border-radius: 8px;
       background: #f0f0f0;
-      > svg{
+
+      > svg {
         width: 20px;
         height: 20px;
       }
-      &.selected{
+
+      &.selected {
         background: #ffe7ba;
       }
     }
