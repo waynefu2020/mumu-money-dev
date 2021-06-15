@@ -8,8 +8,10 @@
         <Icon :name="tag.svg"/>
         {{ tag.name }}
       </li>
-      <li>
-        <Icon name="setting"/>
+      <li class="editTags">
+        <router-link to="/keeping/edit">
+          <Icon name="setting"/>
+        </router-link>
         管理
       </li>
     </ul>
@@ -73,6 +75,16 @@ export default class Tags extends Vue {
 
       &.selected {
         background: #ffe7ba;
+      }
+    }
+    > .editTags{
+      background: white;
+      border: 1px solid #bfbfbf;
+      > a{
+        > svg{
+          width: 20px;
+          height: 20px;
+        }
       }
     }
   }

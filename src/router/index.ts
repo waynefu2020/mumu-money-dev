@@ -4,6 +4,7 @@ import Statistics from '@/views/Statistics.vue';
 import Keeping from '@/views/Keeping.vue'
 import Reports from '@/views/Reports.vue';
 import NotFound from '@/views/NotFound.vue';
+import EditTags from '@/components/Keeping/EditTags.vue';
 
 Vue.use(VueRouter)
 
@@ -15,6 +16,10 @@ const routes: Array<RouteConfig> = [
   {
     path: '/keeping',
     component: Keeping
+  },
+  {
+    path: '/keeping/edit',
+    component: EditTags
   },
   {
     path: '/statistics',
