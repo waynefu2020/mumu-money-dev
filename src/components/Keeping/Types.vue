@@ -36,15 +36,18 @@ export default class Types extends Vue {
     text-align: center;
     background: white;
     > li{
-
-      font-size: 18px;
-      width: 26%;
+      font-size: 16px;
+      font-weight: bold;
+      width: 20%;
       height: 50px;
       display: flex;
       justify-content: center;
       align-items: center;
       position: relative;
+      &.selected{
+        color: #fa8c16;
 
+      }
       &.selected::after {
         content: '';
         position: absolute;
@@ -53,7 +56,6 @@ export default class Types extends Vue {
         width: 100%;
         height: 2px;
         background: #fa8c16;
-        color: #fa8c16;
       }
     }
   }
