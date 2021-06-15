@@ -21,16 +21,12 @@
 <script lang="ts">
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
-
-type Tag = {
-  name: string,
-  svg: string
-}
+import {Tag} from '@/custom';
 
 @Component
 export default class Tags extends Vue {
   @Prop() dataSource: string[] | undefined;
-  selectedTags: string[] = [];
+  selectedTags: Tag[] = [];
 
   toggleTag(tag: Tag) {
     const index = this.selectedTags.indexOf(tag);
@@ -39,6 +35,7 @@ export default class Tags extends Vue {
     } else {
       this.selectedTags.push(tag);
     }
+    console.log(this.selectedTags);
   }
 
 }

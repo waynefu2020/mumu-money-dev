@@ -1,13 +1,12 @@
 <template>
   <Layout class-prefix="keeping">
     <Types/>
-    <Output/>
     <Tags :data-source="tags"/>
     <div class="notesWrapper">
-      <Notes/>
+      <Notes placeholder="在这里输入备注" @update:value="onUpdateNotes"/>
       <DatePicker/>
     </div>
-    <NumberPad/>
+    <NumberPad :value.sync="value"/>
   </Layout>
 </template>
 
@@ -29,11 +28,16 @@ import defaultTags from '@/constants/defaultTags';
 })
 export default class Money extends Vue {
   tags = defaultTags;
-  selectedTag:string[] = []
+  value = 0
+  notes = ''
 
-  onUpdateTag(tag:Tag){
-    this.selectedTag = tag;
+  onUpdateNumberPad(value: number){
+    this.value = value
   }
+  onUpdateNotes(value: string){
+    this.notes = value;
+  }
+
 }
 </script>
 

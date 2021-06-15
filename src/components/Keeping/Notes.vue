@@ -1,18 +1,26 @@
 <template>
-  <div class="notes">
-    <label>
-      <input type="text" placeholder="请输入备注信息">
+  <div>
+    <label class="notes">
+      <input type="text" :value="value"
+             :placeholder="placeholder"
+             @input="onValueChanged($event.target.value)"
+      >
     </label>
   </div>
 </template>
 
 <script lang="ts">
 import Vue from 'vue';
-import {Component} from 'vue-property-decorator';
+import {Component, Prop} from 'vue-property-decorator';
 
 @Component
 export default class Notes extends Vue {
+  @Prop({default: '' }) value!: string;
+  @Prop() placeholder!: string;
 
+  onValueChanged(value: string){
+    this.$emit('update:value', value)
+  }
 }
 </script>
 
@@ -23,9 +31,6 @@ export default class Notes extends Vue {
   align-items: center;
   width: 50%;
 
-  > label{
-
-
     > input {
       color: #595959;
       min-height: 40px;
@@ -35,7 +40,6 @@ export default class Notes extends Vue {
       border-radius: 10px;
       border: none;
     }
-  }
 
 }
 </style>
