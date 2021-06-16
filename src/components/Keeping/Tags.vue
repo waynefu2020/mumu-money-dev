@@ -1,9 +1,9 @@
 <template>
   <div class="tagsWrapper">
     <ul class="tags">
-      <li v-for="(tag, index) in dataSource" :key="index"
-          :class="{selected: selectedTags.indexOf(tag)>=0}"
-          @click="toggleTag(tag)"
+      <li v-for="(tag, index) in defaultTags" :key="index"
+          :class="{selected: tag.name === selectedTag.name}"
+          @click="selectTag(tag)"
       >
         <Icon :name="tag.svg"/>
         {{ tag.name }}
@@ -22,20 +22,18 @@
 import Vue from 'vue';
 import {Component, Prop} from 'vue-property-decorator';
 import {Tag} from '@/custom';
+import defaultTags from '@/constants/defaultTags';
+import createId from '@/lib/createId';
 
 @Component
 export default class Tags extends Vue {
-  @Prop() dataSource: string[] | undefined;
-  selectedTags: Tag[] = [];
+  defaultTags = defaultTags;
+  selectedTag: Tag = {id: '', name: '', svg: '', type: 'expense'};
 
-  toggleTag(tag: Tag) {
-    const index = this.selectedTags.indexOf(tag);
-    if (index >= 0) {
-      this.selectedTags.splice(index, 1);
-    } else {
-      this.selectedTags.push(tag);
-    }
-    console.log(this.selectedTags);
+
+  selectTag(tag: Tag) {
+    this.selectedTag = tag;
+    this.$emit('update:value', this.selectedTag);
   }
 
 }
@@ -74,11 +72,13 @@ export default class Tags extends Vue {
         background: #ffe7ba;
       }
     }
-    > .editTags{
+
+    > .editTags {
       background: white;
       border: 1px solid #bfbfbf;
-      > a{
-        > svg{
+
+      > a {
+        > svg {
           width: 20px;
           height: 20px;
         }
